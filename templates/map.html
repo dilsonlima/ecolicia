@@ -1,0 +1,88 @@
+<!-- templates/map.html -->
+{% extends "base.html" %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+<style>
+    #map-container {
+        height: 500px;
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+        box-shadow: var(--shadow-lg);
+        margin: 2rem 0;
+    }
+    
+    .map-controls {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 1rem;
+    }
+    
+    .material-filter {
+        background: white;
+        padding: 1rem;
+        border-radius: var(--radius-md);
+        box-shadow: var(--shadow-sm);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="map-header">
+    <h2>Encontre pontos de coleta próximos</h2>
+    <div class="map-controls">
+        <div class="material-filter">
+            <label for="material-type">Filtrar por material:</label>
+            <select id="material-type" class="form-input">
+                <option value="all">Todos</option>
+                <option value="plastic">Plástico</option>
+                <option value="paper">Papel</option>
+                <option value="metal">Metal</option>
+                <option value="glass">Vidro</option>
+            </select>
+        </div>
+        <button id="locate-me" class="btn-secondary">
+            <i class="icon-location"></i> Minha Localização
+        </button>
+    </div>
+</div>
+
+<div id="map-container"></div>
+
+<div class="collection-points-list">
+    <!-- Lista dinâmica será preenchida via JavaScript -->
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+<script>
+    // Inicialização do mapa
+    const map = L.map('map-container').setView([-23.5505, -46.6333], 13); // Coordenadas de SP
+    
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap'
+    }).addTo(map);
+
+    // Marcadores de exemplo (substituir por dados reais)
+    const points = [
+        { lat: -23.5505, lng: -46.6333, type: 'plastic', name: 'Ecoponto Centro' },
+        { lat: -23.5600, lng: -46.6400, type: 'paper', name: 'Cooperativa Recicla' }
+    ];
+
+    points.forEach(point => {
+        L.marker([point.lat, point.lng])
+            .addTo(map)
+            .bindPopup(`<b>${point.name}</b><br>Material: ${point.type}`);
+    });
+
+    // Geolocalização
+    document.getElementById('locate-me').addEventListener('click', () => {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(position => {
+                map.setView([position.coords.latitude, position.coords.longitude], 15);
+            });
+        }
+    });
+</script>
+{% endblock %}

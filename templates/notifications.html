@@ -1,0 +1,95 @@
+<!-- templates/notifications.html -->
+{% extends "base.html" %}
+
+{% block extra_css %}
+<style>
+    .notifications-container {
+        max-width: 800px;
+        margin: 2rem auto;
+    }
+    
+    .notification {
+        display: flex;
+        gap: 1rem;
+        padding: 1.5rem;
+        background: white;
+        border-radius: var(--radius-md);
+        margin-bottom: 1rem;
+        box-shadow: var(--shadow-sm);
+        align-items: center;
+    }
+    
+    .notification.unread {
+        border-left: 4px solid var(--primary);
+    }
+    
+    .notification-icon {
+        font-size: 1.5rem;
+        flex-shrink: 0;
+    }
+    
+    .notification-time {
+        color: var(--gray);
+        font-size: 0.9rem;
+        margin-top: 0.5rem;
+    }
+    
+    .notification-badge {
+        background-color: var(--secondary);
+        color: white;
+        border-radius: 50%;
+        width: 25px;
+        height: 25px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-left: auto;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="notifications-header">
+    <h2>Suas Notificações</h2>
+    <button id="mark-all-read" class="btn-secondary">Marcar todas como lidas</button>
+</div>
+
+<div class="notifications-container">
+    <div class="notification unread">
+        <div class="notification-icon">🎁</div>
+        <div>
+            <h3>Novo benefício disponível!</h3>
+            <p>Você desbloqueou um desconto de 15% na Loja Verde</p>
+            <div class="notification-time">Há 2 horas</div>
+        </div>
+        <div class="notification-badge">1</div>
+    </div>
+    
+    <div class="notification">
+        <div class="notification-icon">♻️</div>
+        <div>
+            <h3>Reciclagem registrada</h3>
+            <p>2kg de plástico - 50 pontos adicionados</p>
+            <div class="notification-time">Ontem</div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Simulação de notificações em tempo real
+    const eventSource = new EventSource('/notifications-stream');
+    
+    eventSource.onmessage = function(e) {
+        const notification = JSON.parse(e.data);
+        // Adicionar nova notificação ao DOM
+    };
+    
+    document.getElementById('mark-all-read').addEventListener('click', () => {
+        document.querySelectorAll('.notification').forEach(n => {
+            n.classList.remove('unread');
+        });
+    });
+</script>
+{% endblock %}

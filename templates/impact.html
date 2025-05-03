@@ -1,0 +1,99 @@
+<!-- templates/impact.html -->
+{% extends "base.html" %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.css">
+<style>
+    .impact-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin: 3rem 0;
+    }
+    
+    .impact-card {
+        background: white;
+        border-radius: var(--radius-lg);
+        padding: 2rem;
+        text-align: center;
+    }
+    
+    .impact-value {
+        font-size: 3rem;
+        font-weight: 700;
+        color: var(--primary);
+        margin: 1rem 0;
+    }
+    
+    .chart-container {
+        position: relative;
+        height: 300px;
+        margin-top: 2rem;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="impact-header">
+    <h2>Seu Impacto Ambiental</h2>
+    <p>Veja como suas reciclagens estão transformando o planeta</p>
+</section>
+
+<div class="impact-cards">
+    <div class="impact-card">
+        <i class="icon-co2"></i>
+        <h3>CO2 Reduzido</h3>
+        <div class="impact-value">150 kg</div>
+        <p>Equivalente a 10 árvores plantadas</p>
+    </div>
+    
+    <div class="impact-card">
+        <i class="icon-water"></i>
+        <h3>Água Economizada</h3>
+        <div class="impact-value">3.200 L</div>
+        <p>O suficiente para 20 dias de consumo</p>
+    </div>
+    
+    <div class="impact-card">
+        <i class="icon-energy"></i>
+        <h3>Energia Pouipada</h3>
+        <div class="impact-value">850 kWh</div>
+        <p>Para manter 5 casas por 1 mês</p>
+    </div>
+</div>
+
+<div class="chart-container">
+    <canvas id="impact-chart"></canvas>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+<script>
+    const ctx = document.getElementById('impact-chart').getContext('2d');
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Plástico', 'Papel', 'Metal', 'Vidro'],
+            datasets: [{
+                label: 'Materiais Reciclados (kg)',
+                data: [12, 19, 8, 15],
+                backgroundColor: [
+                    '#2ecc71',
+                    '#3498db',
+                    '#f1c40f',
+                    '#e74c3c'
+                ]
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                }
+            }
+        }
+    });
+</script>
+{% endblock %}

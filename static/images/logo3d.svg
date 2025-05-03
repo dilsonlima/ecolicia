@@ -1,0 +1,55 @@
+<!-- static/images/logo3d.svg -->
+<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Gradiente verde de fundo -->
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2ecc71"/>
+      <stop offset="100%" stop-color="#27ae60"/>
+    </linearGradient>
+    
+    <!-- Gradiente 3D para o coração -->
+    <radialGradient id="heartGradient" cx="50%" cy="45%" r="60%" fx="30%" fy="30%">
+      <stop offset="0%" stop-color="#ff144d"/>
+      <stop offset="60%" stop-color="#ff3860"/>
+      <stop offset="100%" stop-color="#cc002e"/>
+    </radialGradient>
+    
+    <!-- Filtro de sombra 3D -->
+    <filter id="heartShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#cc002e" flood-opacity="0.7"/>
+    </filter>
+    
+    <!-- Filtro de brilho -->
+    <filter id="heartGlow">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+  
+  <!-- Círculo de fundo -->
+  <circle cx="50" cy="50" r="45" fill="url(#bgGradient)"/>
+  
+  <!-- Símbolo de reciclagem -->
+  <path d="M35,35 L65,35 L65,50 L50,50 L60,65 L40,65 L30,50 L50,50 Z" 
+        fill="none" 
+        stroke="white" 
+        stroke-width="3"
+        stroke-linejoin="round"/>
+  
+  <!-- Coração 3D -->
+  <g filter="url(#heartShadow)">
+    <path d="M50,36 C57,28 63,28 65,36 C68,45 58,52 50,58 C42,52 32,45 35,36 C37,28 43,28 50,36 Z" 
+          fill="url(#heartGradient)" 
+          filter="url(#heartGlow)"
+          style="transform-origin: 50px 50px">
+      <!-- Animação sutil de pulsação -->
+      <animate attributeName="opacity" values="1;0.95;1" dur="2s" repeatCount="indefinite"/>
+    </path>
+    
+    <!-- Destaques de luz -->
+    <path d="M45,40 C50,35 55,35 57,38 C55,36 50,34 45,38 Z" 
+          fill="white" 
+          opacity="0.3" 
+          style="mix-blend-mode: overlay"/>
+  </g>
+</svg>

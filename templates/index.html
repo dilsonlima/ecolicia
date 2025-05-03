@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}Bem-vindo ao Ecolicia{% endblock %}
+
+{% block extra_css %}
+<style>
+    .hero-section {
+        background: linear-gradient(135deg, rgba(46, 204, 113, 0.1), rgba(39, 174, 96, 0.1));
+        padding: 4rem 2rem;
+        text-align: center;
+        border-radius: 20px;
+        margin: 2rem 0;
+    }
+    
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        margin: 3rem 0;
+    }
+    
+    .feature-card {
+        background: white;
+        border-radius: 15px;
+        padding: 1.5rem;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        transition: transform 0.3s ease;
+    }
+    
+    .feature-card:hover {
+        transform: translateY(-5px);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="hero-section">
+    <h1>Transforme resíduos em recompensas!</h1>
+    <p class="subtitle">Cada reciclagem conta para um planeta mais limpo</p>
+    <a href="{{ url_for('register') }}" class="btn-primary">Comece Agora</a>
+</section>
+
+<div class="features-grid">
+    <div class="feature-card">
+        <i class="icon-recycle"></i>
+        <h3>Recicle</h3>
+        <p>Encontre pontos de coleta próximos e saiba como descartar cada material</p>
+    </div>
+    
+    <div class="feature-card">
+        <i class="icon-points"></i>
+        <h3>Acumule Pontos</h3>
+        <p>Ganhe recompensas a cada reciclagem realizada</p>
+    </div>
+    
+    <div class="feature-card">
+        <i class="icon-earth"></i>
+        <h3>Impacto Real</h3>
+        <p>Acompanhe sua contribuição para o meio ambiente</p>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,8 @@
+/ecolicia  
+│── /static          # CSS, JS, imagens  
+│── /templates       # HTML (Jinja2)  
+│── app.py           # Flask main app  
+│── database.db      # SQLite  
+│── models.py        # Definição das tabelas  
+│── utils.py         # Funções auxiliares (cálculo de pontos, etc.)  
+
